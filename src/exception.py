@@ -1,7 +1,6 @@
+# src/exception.py
 import sys
-from src.logger import get_logger
-
-logger = get_logger()
+import logging
 
 def error_message_detail(error, error_detail: sys):
     _, _, exc_tb = error_detail.exc_info()
@@ -27,5 +26,5 @@ if __name__ == "__main__":
     try:
         a = 1 / 0
     except Exception as e:
-        logger.error("An exception occurred", exc_info=True)
+        logging.error("An exception occurred", exc_info=True)
         raise CustomException(e, sys)
