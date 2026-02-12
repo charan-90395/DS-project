@@ -13,9 +13,11 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
-from src.components.Data_Transformation import DataTransformation #To use the data transformation config class for file paths
-from src.components.Data_Transformation import DataTransformationConfig #To use the data transformation config class for file paths
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
 
+from src.components.model_train import ModelTrainer #To use the model trainer config class for file paths
+from src.components.model_train import ModelTrainerConfig #To use the model trainer config class for file paths
 @dataclass
 class DataIngestionConfig:  #This class only stores paths.
     train_data_path: str = os.path.join('artifacts', 'train.csv')
@@ -50,9 +52,14 @@ class DataIngestion:  #This is the actual ingestion logic class.
             logging.error("Error occurred during data ingestion: %s", str(e))
             raise CustomException(e, sys)
         
-if __name__ == "__main__": #Python will execute everything inside it when you run this script.
-    obj = DataIngestion()
-    train_data,test_data=obj.initiate_data_ingestion()
+if __name__ == "__main__": #This block allows us to run this script directly for testing the data ingestion process.
 
-    DataTransformation=DataTransformation()
-    DataTransformation.initiate_data_transformation(train_data,test_data)
+    obj = DataIngestion()
+    train_data, test_data = obj.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data, test_data)
+
+    model_trainer = ModelTrainer()
+    model_trainer.initiate_model_trainer(train_arr, test_arr)
+

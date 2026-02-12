@@ -14,9 +14,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from src.exception import CustomException    # Custom exception class
 from src.logger import logging               # Logging utility
 import os                                   
-from src.utils import save_object            # Function to save objects
-
-from src.utils import save_object
+from src.utils import save_object         # Function to save objects
 
 # ===================== CONFIGURATION CLASS =====================
 
