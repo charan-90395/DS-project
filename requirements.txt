@@ -3,5 +3,8 @@ pandas
 matplotlib
 scikit-learn
 requests
-flask   
+flask
+catboost
+xgboost  
+dill
 -e .

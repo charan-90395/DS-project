@@ -13,6 +13,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+from src.components.Data_Transformation import DataTransformation #To use the data transformation config class for file paths
+from src.components.Data_Transformation import DataTransformationConfig #To use the data transformation config class for file paths
+
 @dataclass
 class DataIngestionConfig:  #This class only stores paths.
     train_data_path: str = os.path.join('artifacts', 'train.csv')
@@ -46,6 +49,10 @@ class DataIngestion:  #This is the actual ingestion logic class.
         except Exception as e:
             logging.error("Error occurred during data ingestion: %s", str(e))
             raise CustomException(e, sys)
-if __name__ == "__main__":
+        
+if __name__ == "__main__": #Python will execute everything inside it when you run this script.
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data,test_data=obj.initiate_data_ingestion()
+
+    DataTransformation=DataTransformation()
+    DataTransformation.initiate_data_transformation(train_data,test_data)
